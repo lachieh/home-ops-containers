@@ -33,8 +33,8 @@ jobs:
       - name: Build and Push
         uses: docker/bake-action@6614cfa25eff9a0b2b2697efb0b6159e7680d584 # v7.2.0
         with:
-          context: ./apps/odysseus
-          files: ./apps/odysseus/docker-bake.hcl
+          source: apps/odysseus
+          files: apps/odysseus/docker-bake.hcl
           set: |
             image-all.platform=linux/amd64,linux/arm64
             image-all.output=type=registry,ref=ghcr.io/${{ github.repository_owner }}/odysseus,push=true,compression=zstd,force-compression=true
