@@ -11,7 +11,7 @@ variable "SOURCE" {
 }
 
 group "default" {
-  targets = ["image-local"]
+  targets = ["image-local", "image-all"]
 }
 
 target "image" {
@@ -31,6 +31,8 @@ target "image-local" {
 
 target "image-all" {
   inherits = ["image"]
+  context = "."
+  dockerfile = "Dockerfile"
   platforms = [
     "linux/amd64",
     "linux/arm64"
