@@ -1,0 +1,74 @@
+---
+name: Release
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/odysseus/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+
+      - name: Build and Push
+        uses: docker/bake-action@6614cfa25eff9a0b2b2697efb0b6159e7680d584 # v7.2.0
+        with:
+          files: ./apps/odysseus/docker-bake.hcl
+          set: |
+            *.output=type=registry,ref=ghcr.io/${{ github.repository_owner }}/odysseus,push=true,compression=zstd,force-compression=true
+            *.platforms=linux/amd64,linux/arm64
+
+  attest:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    permissions:
+      attestations: write
+      id-token: write
+      packages: write
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Get Digest
+        id: digest
+        run: |
+          DIGEST=$(docker buildx imagetools inspect "ghcr.io/${{ github.repository_owner }}/odysseus:rolling" --format '{{ .Manifest.digest }}')
+          echo "digest=${DIGEST}" >> $GITHUB_OUTPUT
+
+      - name: Upload Dependency Snapshot
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+        with:
+          dependency-snapshot: true
+          image: ghcr.io/${{ github.repository_owner }}/odysseus@${{ steps.digest.outputs.digest }}
+
+      - name: Attestation
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
+        with:
+          push-to-registry: true
+          subject-name: ghcr.io/${{ github.repository_owner }}/odysseus
+          subject-digest: ${{ steps.digest.outputs.digest }}
