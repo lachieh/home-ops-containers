@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   build:
@@ -35,7 +36,7 @@ jobs:
         with:
           source: apps/odysseus
           set: |
-            image-all.tags=ghcr.io/${{ github.repository_owner }}/odysseus:rolling
+            image-all.tags=ghcr.io/${{ github.repository }}:${{ github.event.inputs.image-name || 'odysseus' }}:rolling
             image-all.platform=linux/amd64,linux/arm64
             image-all.output=type=registry,push=true,compression=zstd,force-compression=true
 
@@ -58,7 +59,7 @@ jobs:
       - name: Get Digest
         id: digest
         run: |
-          DIGEST=$(docker buildx imagetools inspect "ghcr.io/${{ github.repository_owner }}/odysseus:rolling" --format '{{ .Manifest.digest }}')
+          DIGEST=$(docker buildx imagetools inspect "ghcr.io/${{ github.repository }}:odysseus" --format '{{ .Manifest.digest }}' || docker buildx imagetools inspect "ghcr.io/${{ github.repository_owner }}/odysseus:rolling" --format '{{ .Manifest.digest }}')
           echo "digest=${DIGEST}" >> $GITHUB_OUTPUT
 
       - name: Upload Dependency Snapshot
