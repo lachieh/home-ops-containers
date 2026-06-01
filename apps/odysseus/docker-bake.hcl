@@ -16,8 +16,6 @@ group "default" {
 
 target "image" {
   inherits = ["docker-metadata-action"]
-  context = "."
-  dockerfile = "Dockerfile"
   labels = {
     "org.opencontainers.image.source" = "${SOURCE}"
   }
