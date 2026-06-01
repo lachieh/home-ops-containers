@@ -35,8 +35,9 @@ jobs:
         with:
           source: apps/odysseus
           set: |
+            image-all.tags=ghcr.io/${{ github.repository_owner }}/odysseus:rolling
             image-all.platform=linux/amd64,linux/arm64
-            image-all.output=type=registry,ref=ghcr.io/${{ github.repository_owner }}/odysseus,push=true,compression=zstd,force-compression=true
+            image-all.output=type=registry,push=true,compression=zstd,force-compression=true
 
   attest:
     needs:
