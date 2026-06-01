@@ -33,6 +33,7 @@ target "image-all" {
   inherits = ["image"]
   context = "."
   dockerfile = "Dockerfile"
+  tags = ["${APP}:rolling"]
   platforms = [
     "linux/amd64",
     "linux/arm64"
