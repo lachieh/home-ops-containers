@@ -12,10 +12,9 @@
     {
       "customType": "regex",
       "managerFilePatterns": ["^apps/odysseus/docker-bake\\.hcl$"],
-      "matchStrings": ["VERSION=(?<currentDigest>[a-f0-9]+)"],
+      "matchStrings": ["\"(?<currentDigest>[a-f0-9]{40})\" # renovate-sha repo:(?<packageName>.+)"],
       "currentValueTemplate": "main",
       "depNameTemplate": "odysseus",
-      "packageNameTemplate": "https://github.com/pewdiepie-archdaemon/odysseus",
       "datasourceTemplate": "git-refs"
     }
   ]

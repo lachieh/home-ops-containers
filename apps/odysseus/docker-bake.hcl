@@ -7,7 +7,7 @@ variable "SOURCE" {
 }
 
 variable "VERSION" {
-  default = "9c68ceafeb8ac9990e0c0c64a47796395299d604"
+  default = "9c68ceafeb8ac9990e0c0c64a47796395299d604" # renovate-sha repo:https://github.com/pewdiepie-archdaemon/odysseus
 }
 
 target "docker-metadata-action" {}
