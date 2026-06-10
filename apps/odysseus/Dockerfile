@@ -1,7 +1,8 @@
 FROM python:3.12-slim
 
 ARG TARGETPLATFORM
-ARG VERSION
+ARG VERSION=main
+ARG SOURCE=https://github.com/pewdiepie-archdaemon/odysseus
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -19,9 +20,9 @@ WORKDIR /app
 
 RUN case "${TARGETPLATFORM}" in \
     linux/arm64) \
-        curl -L "https://github.com/pewdiepie-archdaemon/odysseus/archive/refs/heads/main.tar.gz" -o - | tar xz --strip-components=1 ;; \
+        curl -L "${SOURCE}/archive/${VERSION}.tar.gz" -o - | tar xz --strip-components=1 ;; \
     *) \
-        curl -L "https://github.com/pewdiepie-archdaemon/odysseus/archive/refs/heads/main.tar.gz" -o - | tar xz --strip-components=1 ;; \
+        curl -L "${SOURCE}/archive/${VERSION}.tar.gz" -o - | tar xz --strip-components=1 ;; \
     esac
 
 RUN pip install --no-cache-dir -r requirements.txt

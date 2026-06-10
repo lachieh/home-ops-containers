@@ -1,7 +1,3 @@
-// renovate: datasource=github-releases depName=pewdiepie-archdaemon/odysseus versioning=docker
-
-target "docker-metadata-action" {}
-
 variable "APP" {
   default = "odysseus"
 }
@@ -9,6 +5,12 @@ variable "APP" {
 variable "SOURCE" {
   default = "https://github.com/pewdiepie-archdaemon/odysseus"
 }
+
+variable "VERSION" {
+  default = "9c68ceafeb8ac9990e0c0c64a47796395299d604"
+}
+
+target "docker-metadata-action" {}
 
 group "default" {
   targets = ["image-local", "image-all"]
@@ -18,6 +20,10 @@ target "image" {
   inherits = ["docker-metadata-action"]
   context = "."
   dockerfile = "Dockerfile"
+  args = {
+    VERSION = "${VERSION}"
+    SOURCE  = "${SOURCE}"
+  }
   labels = {
     "org.opencontainers.image.source" = "${SOURCE}"
   }

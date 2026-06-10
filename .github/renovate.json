@@ -7,5 +7,16 @@
     ":automergeAll",
     ":automergePr",
     ":disableDependencyDashboard"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["^apps/odysseus/docker-bake\\.hcl$"],
+      "matchStrings": ["VERSION=(?<currentDigest>[a-f0-9]+)"],
+      "currentValueTemplate": "main",
+      "depNameTemplate": "odysseus",
+      "packageNameTemplate": "https://github.com/pewdiepie-archdaemon/odysseus",
+      "datasourceTemplate": "git-refs"
+    }
   ]
 }
