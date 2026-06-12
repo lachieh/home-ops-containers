@@ -11,7 +11,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["^apps/odysseus/docker-bake\\.hcl$"],
+      "managerFilePatterns": ["/^apps\\/odysseus\\/docker-bake\\.hcl$/"],
       "matchStrings": ["\"(?<currentDigest>[a-f0-9]{40})\" # renovate-sha repo:(?<packageName>.+)"],
       "currentValueTemplate": "main",
       "depNameTemplate": "odysseus",
