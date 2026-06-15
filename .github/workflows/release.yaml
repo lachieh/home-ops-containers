@@ -25,6 +25,10 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set date tag
+        id: date
+        run: echo "tag=v$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
@@ -40,6 +44,9 @@ jobs:
         with:
           source: apps/odysseus
           set: |
-            image-all.tags=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:rolling
+            REGISTRY=${{ env.REGISTRY }}
+            REPO_OWNER=${{ github.repository_owner }}
+            IMAGE_NAME=${{ env.IMAGE_NAME }}
+            DATE_TAG=${{ steps.date.outputs.tag }}
             image-all.platform=linux/amd64,linux/arm64
             image-all.output=type=registry,push=true,compression=zstd,force-compression=true

@@ -1,3 +1,11 @@
+variable "REGISTRY" {
+  default = "ghcr.io"
+}
+
+variable "REPO_OWNER" {
+  default = "lachieh"
+}
+
 variable "APP" {
   default = "odysseus"
 }
@@ -8,6 +16,10 @@ variable "SOURCE" {
 
 variable "VERSION" {
   default = "7690860ab1a7b50afd1887b5a61ca60f38961847" # renovate-sha repo:https://github.com/pewdiepie-archdaemon/odysseus
+}
+
+variable "DATE_TAG" {
+  default = "2024-01-01"
 }
 
 target "docker-metadata-action" {}
@@ -39,7 +51,10 @@ target "image-all" {
   inherits = ["image"]
   context = "."
   dockerfile = "Dockerfile"
-  tags = ["${APP}:rolling"]
+  tags = [
+    "${REGISTRY}/${REPO_OWNER}/${APP}:rolling",
+    "${REGISTRY}/${REPO_OWNER}/${APP}:${DATE_TAG}"
+  ]
   platforms = [
     "linux/amd64",
     "linux/arm64"
