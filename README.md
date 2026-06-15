@@ -13,11 +13,12 @@ An opinionated collection of container images for homelab applications.
 Images are available on GitHub Container Registry:
 
 ```yaml
+# Rolling latest
 image: ghcr.io/lachieh/odysseus:rolling
-```
 
-Pin to digest for immutability:
+# Date-tagged releases (vYYYY-MM-DD)
+image: ghcr.io/lachieh/odysseus:v2026-06-15
 
-```yaml
+# Pin to digest for immutability
 image: ghcr.io/lachieh/odysseus@sha256:<digest>
 ```
