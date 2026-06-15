@@ -40,13 +40,14 @@ jobs:
         uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
 
       - name: Build and Push
+        env:
+          BAKE_REGISTRY: ${{ env.REGISTRY }}
+          BAKE_REPO_OWNER: ${{ github.repository_owner }}
+          BAKE_IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          BAKE_DATE_TAG: ${{ steps.date.outputs.tag }}
         uses: docker/bake-action@6614cfa25eff9a0b2b2697efb0b6159e7680d584 # v7.2.0
         with:
           source: apps/odysseus
           set: |
-            REGISTRY=${{ env.REGISTRY }}
-            REPO_OWNER=${{ github.repository_owner }}
-            IMAGE_NAME=${{ env.IMAGE_NAME }}
-            DATE_TAG=${{ steps.date.outputs.tag }}
             image-all.platform=linux/amd64,linux/arm64
             image-all.output=type=registry,push=true,compression=zstd,force-compression=true
