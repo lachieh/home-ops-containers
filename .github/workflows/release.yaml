@@ -27,7 +27,7 @@ jobs:
 
       - name: Set date tag
         id: date
-        run: echo "tag=v$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+        run: echo "tag=v$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
@@ -41,10 +41,10 @@ jobs:
 
       - name: Build and Push
         env:
-          BAKE_REGISTRY: ${{ env.REGISTRY }}
-          BAKE_REPO_OWNER: ${{ github.repository_owner }}
-          BAKE_IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          BAKE_DATE_TAG: ${{ steps.date.outputs.tag }}
+          REGISTRY: ${{ env.REGISTRY }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          APP: ${{ env.IMAGE_NAME }}
+          DATE_TAG: ${{ steps.date.outputs.tag }}
         uses: docker/bake-action@6614cfa25eff9a0b2b2697efb0b6159e7680d584 # v7.2.0
         with:
           source: apps/odysseus

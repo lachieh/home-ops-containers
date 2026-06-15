@@ -19,7 +19,7 @@ variable "VERSION" {
 }
 
 variable "DATE_TAG" {
-  default = "2024-01-01"
+  default = "local"
 }
 
 target "docker-metadata-action" {}
