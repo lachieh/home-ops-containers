@@ -15,7 +15,7 @@ variable "SOURCE" {
 }
 
 variable "VERSION" {
-  default = "dd055ee6e36581ad8c9c539e02b5b9963fbac2a1" # renovate-sha repo:https://github.com/pewdiepie-archdaemon/odysseus
+  default = "dc3530b8fa817dfc87f5e32920b0bfcfb27ea017" # renovate-sha repo:https://github.com/pewdiepie-archdaemon/odysseus
 }
 
 variable "DATE_TAG" {
