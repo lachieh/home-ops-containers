@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - apps/odysseus/**
+  schedule:
+    # Rebuild the current tracked Odysseus main revision weekly with a fresh date tag.
+    - cron: "17 06 * * 1"
   workflow_dispatch:
 
 permissions:
