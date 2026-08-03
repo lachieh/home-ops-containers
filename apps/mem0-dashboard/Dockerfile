@@ -14,7 +14,6 @@ RUN corepack enable && pnpm install --frozen-lockfile
 FROM base AS builder
 WORKDIR /src/server/dashboard
 COPY --from=deps /src/server/dashboard/node_modules ./node_modules
-COPY --from=deps /src ./
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_PUBLIC_API_URL=NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_INSTANCE_NAME=NEXT_PUBLIC_INSTANCE_NAME
