@@ -16,6 +16,11 @@
       "currentValueTemplate": "main",
       "depNameTemplate": "odysseus",
       "datasourceTemplate": "git-refs"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^apps\\/mem0-(api|dashboard)\\/docker-bake\\.hcl$/"],
+      "matchStrings": ["default = \"(?<currentValue>[a-f0-9]{40})\" # renovate: datasource=git-refs depName=(?<depName>[^ ]+) versioning=git"]
     }
   ]
 }
