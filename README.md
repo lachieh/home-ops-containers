@@ -7,6 +7,8 @@ An opinionated collection of container images for homelab applications.
 | Container | Description |
 |-----------|-------------|
 | `ghcr.io/lachieh/odysseus` | Self-hosted AI workspace |
+| `ghcr.io/lachieh/mem0-api` | Mem0 self-hosted memory API |
+| `ghcr.io/lachieh/mem0-dashboard` | Mem0 self-hosted dashboard |
 
 ## Usage
 
