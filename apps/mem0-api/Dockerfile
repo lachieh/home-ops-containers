@@ -3,7 +3,7 @@ FROM python:3.12-slim
 ARG VERSION=50bdaaea0c02744720ed374d88584fd01494eeb7
 ARG SOURCE=https://github.com/mem0ai/mem0
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
+RUN apt-get update && apt-get install -y --no-install-recommends curl libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
