@@ -21,6 +21,11 @@
       "customType": "regex",
       "managerFilePatterns": ["/^apps\\/mem0-(api|dashboard)\\/docker-bake\\.hcl$/"],
       "matchStrings": ["default = \"(?<currentValue>[a-f0-9]{40})\" # renovate: datasource=git-refs depName=(?<depName>[^ ]+) versioning=git"]
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^apps\\/tapes\\/docker-bake\\.hcl$/"],
+      "matchStrings": ["default = \"(?<currentValue>v[0-9.]+)\" # renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=semver"]
     }
   ]
 }
