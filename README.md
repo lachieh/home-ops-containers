@@ -10,6 +10,7 @@ An opinionated collection of container images for homelab applications.
 | `ghcr.io/lachieh/mem0-api` | Mem0 self-hosted memory API |
 | `ghcr.io/lachieh/mem0-dashboard` | Mem0 self-hosted dashboard |
 | `ghcr.io/lachieh/tapes` | Transparent agent telemetry server |
+| `ghcr.io/lachieh/t3code` | T3 Code server, rebuilt daily from the newest nightly |
 
 ## Usage
 
